@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductList from '../Product/ProductList';
 
 class HomePage extends React.Component {
   constructor() {
@@ -8,7 +9,7 @@ class HomePage extends React.Component {
         {
           id: 1,
           name: 'Codecademy',
-          link: 'https://code.com',
+          link: 'https://codecademy.com',
           media: '/img/codecademy.jpeg',
           upvote: 169,
           description: 'Code for anyone',
@@ -20,10 +21,10 @@ class HomePage extends React.Component {
         {
           id: 2,
           name: 'Code4Startup',
-          link: 'https://code.com',
+          link: 'https://code4startup.com',
           media: '/img/code4startup.jpeg',
-          upvote: 169,
-          description: 'Code for startups',
+          upvote: 278,
+          description: 'Code for starups',
           maker: {
             name: 'leo',
             avatar: '/img/leo.jpeg'
@@ -40,58 +41,15 @@ class HomePage extends React.Component {
           <img src="/img/banner.jpeg" width="100%" />
         </header>
 
-        <section className="page-content">
+        <section>
           <section className="container">
-            <ul className="product-list">
-              <li className="product-item">
-                <a className="upvote-button" href="#">
-                  <span>
-                    <i className="fas fa-sort-up"></i>
-                  </span>
-                  <br/>
-                  {this.state.productList[0].upvote}
-                </a>
-                <img className="product-item-media" src={this.state.productList[0].media} />
-                <section className="product-item-info">
-                  <a href="#">
-                    <h2>{this.state.productList[0].name}</h2>
-                  </a>
-                  <p>{this.state.productList[0].description}</p>
-                  <a href="#">
-                    <img className="small-avatar" src={this.state.productList[0].maker.avatar} />
-                  </a>
-                </section>
-                <a className="product-item-link" href={this.state.productList[0].link} >
-                  <span>
-                    <i className="fas fa-external-link-alt"></i>
-                  </span>
-                </a>
-              </li>
-              <li className="product-item">
-                <a className="upvote-button" href="#">
-                  <span>
-                    <i className="fas fa-sort-up"></i>
-                  </span>
-                  <br/>
-                  {this.state.productList[1].upvote}
-                </a>
-                <img className="product-item-media" src={this.state.productList[1].media} />
-                <section className="product-item-info">
-                  <a href="#">
-                    <h2>{this.state.productList[1].name}</h2>
-                  </a>
-                  <p>{this.state.productList[1].description}</p>
-                  <a href="#">
-                    <img className="small-avatar" src={this.state.productList[1].maker.avatar} />
-                  </a>
-                </section>
-                <a className="product-item-link" href={this.state.productList[1].link} >
-                  <span>
-                    <i className="fas fa-external-link-alt"></i>
-                  </span>
-                </a>
-              </li>
-            </ul>
+            {
+              this.state.productList
+              ?
+              <ProductList productList={this.state.productList}/>
+              :
+              null
+            }
           </section>
         </section>
       </section>
