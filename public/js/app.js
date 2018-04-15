@@ -19343,7 +19343,77 @@ var HomePage = function (_React$Component) {
 
 exports.default = HomePage;
 
-},{"../Product/ProductList":29,"react":24}],26:[function(require,module,exports){
+},{"../Product/ProductList":30,"react":24}],26:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Popup = require('./Popup');
+
+var _Popup2 = _interopRequireDefault(_Popup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LoginPopup = function (_React$Component) {
+  _inherits(LoginPopup, _React$Component);
+
+  function LoginPopup() {
+    _classCallCheck(this, LoginPopup);
+
+    return _possibleConstructorReturn(this, (LoginPopup.__proto__ || Object.getPrototypeOf(LoginPopup)).apply(this, arguments));
+  }
+
+  _createClass(LoginPopup, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _Popup2.default,
+        this.props,
+        _react2.default.createElement('img', { src: '/img/kitty.png' }),
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Login to Join the Community '
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'CodeHunt is a community to share and geek out about the latest code, podcast and news'
+        ),
+        _react2.default.createElement(
+          'button',
+          { clasName: 'facebook-btn' },
+          'Login with Facebook'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'We\'ll never post to Facebook without your permission.'
+        )
+      );
+    }
+  }]);
+
+  return LoginPopup;
+}(_react2.default.Component);
+
+exports.default = LoginPopup;
+
+},{"./Popup":27,"react":24}],27:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19382,15 +19452,15 @@ var Popup = function (_React$Component) {
         _react2.default.createElement(
           "section",
           { className: "popup-wrap" },
-          _react2.default.createElement("img", { src: "/img/close.png" })
+          _react2.default.createElement("img", { src: "/img/close.png", onClick: this.props.hidePopup })
         ),
         _react2.default.createElement(
           "section",
-          { className: "popup-content" },
+          { className: "popup-content login-popup" },
           _react2.default.createElement(
             "section",
             null,
-            "POPUP CONTENT SHOULD BE HERE"
+            this.props.children
           )
         )
       );
@@ -19401,7 +19471,7 @@ var Popup = function (_React$Component) {
       return _react2.default.createElement(
         "section",
         null,
-        this.renderPopupContent()
+        this.props.status ? this.renderPopupContent() : null
       );
     }
   }]);
@@ -19411,7 +19481,7 @@ var Popup = function (_React$Component) {
 
 exports.default = Popup;
 
-},{"react":24}],27:[function(require,module,exports){
+},{"react":24}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19424,9 +19494,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Popup = require('./Popup');
+var _LoginPopup = require('./LoginPopup');
 
-var _Popup2 = _interopRequireDefault(_Popup);
+var _LoginPopup2 = _interopRequireDefault(_LoginPopup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19442,7 +19512,20 @@ var Navbar = function (_React$Component) {
   function Navbar() {
     _classCallCheck(this, Navbar);
 
-    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this));
+
+    _this.showPopup = function () {
+      _this.setState({ popupStatus: true });
+    };
+
+    _this.hidePopup = function () {
+      _this.setState({ popupStatus: false });
+    };
+
+    _this.state = {
+      popupStatus: false
+    };
+    return _this;
   }
 
   _createClass(Navbar, [{
@@ -19471,7 +19554,7 @@ var Navbar = function (_React$Component) {
         { className: 'right-side' },
         _react2.default.createElement(
           'a',
-          { href: '#', className: 'login-btn' },
+          { href: '#', onClick: this.showPopup, className: 'login-btn' },
           'LOGIN'
         )
       );
@@ -19489,7 +19572,7 @@ var Navbar = function (_React$Component) {
           this.renderLogo(),
           this.renderUser()
         ),
-        _react2.default.createElement(_Popup2.default, null)
+        _react2.default.createElement(_LoginPopup2.default, { status: this.state.popupStatus, hidePopup: this.hidePopup })
       );
     }
   }]);
@@ -19499,7 +19582,7 @@ var Navbar = function (_React$Component) {
 
 exports.default = Navbar;
 
-},{"./Popup":26,"react":24}],28:[function(require,module,exports){
+},{"./LoginPopup":26,"react":24}],29:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19602,7 +19685,7 @@ var ProductItem = function (_React$Component) {
 
 exports.default = ProductItem;
 
-},{"react":24}],29:[function(require,module,exports){
+},{"react":24}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19656,7 +19739,7 @@ var ProductList = function (_React$Component) {
 
 exports.default = ProductList;
 
-},{"./ProductItem":28,"react":24}],30:[function(require,module,exports){
+},{"./ProductItem":29,"react":24}],31:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -19711,4 +19794,4 @@ var App = function (_React$Component) {
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('root'));
 
-},{"./HomePage":25,"./Navbar":27,"react":24,"react-dom":21}]},{},[30]);
+},{"./HomePage":25,"./Navbar":28,"react":24,"react-dom":21}]},{},[31]);

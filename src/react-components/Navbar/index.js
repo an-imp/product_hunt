@@ -1,7 +1,22 @@
 import React from 'react';
-import Popup from './Popup';
+import LoginPopup from './LoginPopup';
 
 class Navbar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      popupStatus: false
+    }
+  }
+
+  showPopup = () => {
+    this.setState({popupStatus: true});
+  };
+
+  hidePopup = () => {
+    this.setState({popupStatus: false});
+  };
+
   renderProductSearch() {
     return (
       <section className="left-side">
@@ -19,7 +34,7 @@ class Navbar extends React.Component {
   renderUser() {
     return (
       <section className="right-side">
-        <a href="#" className="login-btn">LOGIN</a>
+        <a href="#" onClick={this.showPopup} className="login-btn">LOGIN</a>
       </section>
     );
   }
@@ -31,7 +46,7 @@ class Navbar extends React.Component {
           { this.renderLogo() }
           { this.renderUser() }
         </section>
-        <Popup />
+        <LoginPopup status={this.state.popupStatus} hidePopup={this.hidePopup}/>
       </section>
 
     );
