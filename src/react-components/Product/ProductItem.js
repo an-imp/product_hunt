@@ -13,13 +13,13 @@ class ProductItem extends React.Component {
   }
 
   renderNewWindowIcon() {
-    return() {
+    return(
       <a className="product-item-link" href={this.props.link}>
         <span>
           <i className="fas fa-external-link-alt"></i>
         </span>
       </a>
-    };
+    );
   }
 
   renderInfoSession() {
@@ -38,10 +38,10 @@ class ProductItem extends React.Component {
   render() {
     return(
       <li className="product-item">
-        { this.renderUpvoteButton }
+        { this.renderUpvoteButton() }
         <img className="product-item-media" src={this.props.media} />
-        { this.renderInfoSession }
-        { this.renderNewWindowIcon }
+        { this.renderInfoSession() }
+        { this.renderNewWindowIcon() }
       </li>
     );
   }
