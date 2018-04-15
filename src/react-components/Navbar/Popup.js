@@ -5,15 +5,14 @@ class Popup extends React.Component {
     return (
       <section className="popup">
         <section className="popup-wrap">
-          <img src="/img/close.png" onClick = {this.props.hidePopup} />
+          <img src="/img/close.png" onClick={this.props.hidePopup}/>
         </section>
-        <section className="popup-content login-popup">
+        <section className={"popup-content " + this.props.style}>
           <section>{this.props.children}</section>
         </section>
       </section>
-    )
+    );
   }
-
 
   render() {
     return (
@@ -22,7 +21,6 @@ class Popup extends React.Component {
           this.props.status? this.renderPopupContent() : null
         }
       </section>
-
     );
   }
 }
